@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102a43">
+<meta name="description" content="Ferramentas gratuitas para organizar despesas e fazer cálculos do dia a dia.">
+<title>Central Fácil | Ferramentas gratuitas</title>
+<style>
+:root{--navy:#102a43;--blue:#1769aa;--blue2:#0f568f;--bg:#f3f7fb;--ink:#172b4d;--muted:#61758a;--line:#dce6ef;--white:#fff;--green:#16794b;--red:#a83232;--gold:#7a5b13;--shadow:0 8px 24px #173b5710}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#102a43,#1769aa);color:white;padding:24px 18px 34px}.wrap{max-width:1100px;margin:auto}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px}.logo{font-size:20px;font-weight:850;letter-spacing:.3px}.pill{font-size:12px;border:1px solid #ffffff70;border-radius:30px;padding:5px 10px;color:#e8f5ff}
+h1{font-size:clamp(29px,5vw,43px);line-height:1.1;margin:0 0 10px;max-width:760px}header p{color:#e1efff;max-width:680px;margin:0}
+main{padding:25px 18px 48px}.topline{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:3px 0 17px}.topline h2{font-size:22px;margin:0}.topline small{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:19px;margin:0 0 4px}.desc{color:var(--muted);font-size:13px;margin:0 0 16px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:block;font-size:13px;font-weight:680;margin:0 0 5px}input,select{width:100%;border:1px solid #cbd8e4;border-radius:9px;padding:11px 12px;font:inherit;color:var(--ink);background:#fff;min-width:0}
+input:focus,select:focus{outline:3px solid #d7edff;border-color:var(--blue)}
+button{border:0;border-radius:9px;background:var(--blue);color:white;font-weight:700;padding:11px 16px;margin-top:14px;cursor:pointer;font:inherit}button:hover{background:var(--blue2)}button.secondary{background:#eaf3fa;color:#174b72;border:1px solid #cfe0ee}button.danger{background:#fff0f0;color:var(--red);border:1px solid #f0cccc}
+.result{margin-top:13px;padding:12px 13px;border-radius:10px;background:#edf7ff;border:1px solid #cfe7f8;min-height:48px;font-weight:750;color:#124b76;overflow-wrap:anywhere}.result small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:3px}
+.full{grid-column:1/-1}.expense-list{margin-top:13px;display:grid;gap:8px}.expense{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:8px 0;font-size:14px}.expense span:last-child{font-weight:700;white-space:nowrap}
+.notice{margin-top:18px;background:#fff8e8;border:1px solid #f1dfb7;color:#6d531a;border-radius:12px;padding:13px 15px;font-size:13px}.ok{color:var(--green)}.muted{color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px 18px 35px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.topline{display:block}.topline small{display:block;margin-top:4px}}
+@media(max-width:390px){.fields{grid-template-columns:1fr}.card{padding:16px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<nav><div class="logo">✦ CENTRAL FÁCIL</div><div class="pill">Ferramentas gratuitas</div></nav>
+<h1>Organize suas contas e resolva cálculos do dia a dia.</h1>
+<p>Ferramentas simples, gratuitas e fáceis de usar. Sem cadastro. Seus dados ficam neste dispositivo.</p>
+</div></header>
+<main class="wrap">
+<div class="topline"><h2>Suas ferramentas</h2><small>Versão 1.1 · Funciona no celular e computador</small></div>
+<div class="grid">
+<section class="card">
+<h3>⏱ Calculadora de horas extras</h3><p class="desc">Estimativa do valor bruto das horas extras.</p>
+<div class="fields">
+<div><label for="sal">Salário mensal (R$)</label><input id="sal" type="number" min="0" step=".01" inputmode="decimal" placeholder="2500"></div>
+<div><label for="horas">Horas extras</label><input id="horas" type="number" min="0" step=".01" inputmode="decimal" placeholder="10"></div>
+<div><label for="jornada">Divisor mensal de horas</label><input id="jornada" type="number" min="1" step="1" value="220"></div>
+<div><label for="adicional">Adicional (%)</label><input id="adicional" type="number" min="0" step="1" value="50"></div>
+</div><button onclick="extra()">Calcular horas extras</button><div class="result" id="r-extra" aria-live="polite">Preencha os campos para calcular.</div>
+</section>
+<section class="card">
+<h3>⛽ Custo de combustível</h3><p class="desc">Estime o gasto de combustível em um trajeto.</p>
+<div class="fields">
+<div><label for="km">Distância (km)</label><input id="km" type="number" min="0" step=".1" inputmode="decimal" placeholder="100"></div>
+<div><label for="cons">Consumo (km por litro)</label><input id="cons" type="number" min="0" step=".1" inputmode="decimal" placeholder="12"></div>
+<div><label for="preco">Preço por litro (R$)</label><input id="preco" type="number" min="0" step=".01" inputmode="decimal" placeholder="5.80"></div>
+</div><button onclick="combustivel()">Calcular combustível</button><div class="result" id="r-comb" aria-live="polite">Preencha os campos para calcular.</div>
+</section>
+<section class="card">
+<h3>🏠 Orçamento doméstico</h3><p class="desc">Some as contas informadas e compare com sua renda.</p>
+<div class="fields">
+<div><label for="renda">Renda mensal (R$)</label><input id="renda" type="number" min="0" step=".01" inputmode="decimal" placeholder="2500"></div>
+<div><label for="aluguel">Aluguel (R$)</label><input id="aluguel" type="number" min="0" step=".01" inputmode="decimal" placeholder="850"></div>
+<div><label for="energia">Energia (R$)</label><input id="energia" type="number" min="0" step=".01" inputmode="decimal" placeholder="120"></div>
+<div><label for="agua">Água (R$)</label><input id="agua" type="number" min="0" step=".01" inputmode="decimal" placeholder="60"></div>
+<div><label for="internet">Internet (R$)</label><input id="internet" type="number" min="0" step=".01" inputmode="decimal" placeholder="100"></div>
+<div><label for="outros">Outras despesas (R$)</label><input id="outros" type="number" min="0" step=".01" inputmode="decimal" placeholder="0"></div>
+</div><button onclick="orcamento(true)">Calcular orçamento</button><div class="result" id="r-orc" aria-live="polite">Informe os valores das contas.</div>
+</section>
+<section class="card">
+<h3>🎁 Estimativa de 13º salário</h3><p class="desc">Estimativa bruta proporcional aos meses contabilizados.</p>
+<div class="fields">
+<div><label for="sal13">Salário bruto (R$)</label><input id="sal13" type="number" min="0" step=".01" inputmode="decimal" placeholder="2500"></div>
+<div><label for="meses">Meses contabilizados (0–12)</label><input id="meses" type="number" min="0" max="12" step="1" value="12"></div>
+</div><button onclick="decimo()">Calcular 13º</button><div class="result" id="r-13" aria-live="polite">Preencha os campos para calcular.</div>
+</section>
+<section class="card full">
+<h3>🧾 Meu controle de despesas</h3><p class="desc">Adicione gastos do mês. A lista fica salva neste navegador, neste dispositivo.</p>
+<div class="fields">
+<div><label for="descGasto">Descrição</label><input id="descGasto" maxlength="60" placeholder="Ex.: mercado"></div>
+<div><label for="valorGasto">Valor (R$)</label><input id="valorGasto" type="number" min=".01" step=".01" inputmode="decimal" placeholder="50"></div>
+</div>
+<button onclick="addGasto()">Adicionar despesa</button><button class="secondary" onclick="exportar()">Baixar meus gastos (CSV)</button><div class="result" id="totalGastos" aria-live="polite">Total registrado: R$ 0,00</div>
+<div class="expense-list" id="listaGastos"></div>
+<button class="danger" onclick="limparGastos()">Apagar todos os gastos</button>
+</section>
+</div>
+<div class="notice"><strong>Importante:</strong> cálculos são estimativas simplificadas, não substituem holerite, contador ou cálculo oficial. Horas extras podem ter regras de convenção coletiva e reflexos; 13º depende das regras legais de contagem e descontos. Os dados de despesas são guardados apenas no armazenamento local do navegador. Limpar dados do navegador pode apagá-los. Não informe senhas, dados bancários ou documentos pessoais nesta página.</div>
+</main>
+<footer>Central Fácil · Ferramentas gratuitas para o dia a dia</footer>
+<script>
+'use strict';
+const el=id=>document.getElementById(id);
+const num=id=>{const x=Number(el(id).value);return Number.isFinite(x)?x:NaN};
+const br=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const valid=(ids)=>ids.every(id=>el(id).value.trim()!=='' && Number.isFinite(num(id)) && num(id)>=0);
+function show(id,msg){el(id).textContent='';el(id).innerHTML=msg}
+function extra(){let ids=['sal','horas','jornada','adicional'];if(!valid(ids)||num('sal')<=0||num('jornada')<=0){show('r-extra','Confira os campos. Salário e divisor devem ser maiores que zero.');return}let base=num('sal')/num('jornada'),total=base*(1+num('adicional')/100)*num('horas');show('r-extra',br(total)+'<small>Estimativa bruta. Não inclui reflexos, DSR ou descontos.</small>')}
+function combustivel(){let ids=['km','cons','preco'];if(!valid(ids)||num('km')<=0||num('cons')<=0){show('r-comb','Informe distância e consumo maiores que zero e preço válido.');return}let litros=num('km')/num('cons');show('r-comb',br(litros*num('preco'))+'<small>'+litros.toFixed(2).replace('.',',')+' litros estimados para o trajeto.</small>')}
+function orcamento(save){let ids=['renda','aluguel','energia','agua','internet','outros'];if(!valid(ids)){show('r-orc','Preencha todos os campos com valores iguais ou maiores que zero.');return}let renda=num('renda'),total=ids.slice(1).reduce((s,id)=>s+num(id),0),saldo=renda-total;let msg='Despesas: '+br(total)+' · ';msg+=renda>0?'Saldo estimado: '+br(saldo):'Informe sua renda para calcular o saldo';if(renda>0)msg+='<small>'+(saldo>=0?'As despesas informadas cabem na renda.':'As despesas informadas superam a renda.')+'</small>';show('r-orc',msg)}
+function decimo(){let ids=['sal13','meses'];if(!valid(ids)||num('sal13')<=0||num('meses')>12||!Number.isInteger(num('meses'))){show('r-13','Informe salário maior que zero e número inteiro de meses entre 0 e 12.');return}show('r-13',br(num('sal13')*num('meses')/12)+'<small>Estimativa bruta proporcional; regras de contagem e descontos podem alterar o valor.</small>')}
+const KEY='centralFacilGastosV1';
+function getGastos(){try{let a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
+function saveGastos(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){alert('Não foi possível salvar neste navegador. Verifique o espaço disponível ou as configurações de privacidade.');return false}}
+function renderGastos(){let a=getGastos(),total=a.reduce((s,x)=>s+x.valor,0);el('totalGastos').textContent='Total registrado: '+br(total);let box=el('listaGastos');box.innerHTML='';if(!a.length){let p=document.createElement('p');p.className='muted';p.textContent='Nenhuma despesa adicionada ainda.';box.appendChild(p);return}a.forEach((x,i)=>{let row=document.createElement('div');row.className='expense';let left=document.createElement('span');left.textContent=x.desc;let right=document.createElement('span');right.textContent=br(x.valor);let del=document.createElement('button');del.className='secondary';del.style.margin='0';del.style.padding='4px 9px';del.textContent='Excluir';del.setAttribute('aria-label','Excluir '+x.desc);del.onclick=()=>{let b=getGastos();b.splice(i,1);saveGastos(b);renderGastos()};let wrap=document.createElement('div');wrap.style.display='flex';wrap.style.alignItems='center';wrap.style.gap='8px';wrap.append(right,del);row.append(left,wrap);box.appendChild(row)})}
+function addGasto(){let desc=el('descGasto').value.trim(),valor=Number(el('valorGasto').value);if(!desc||!Number.isFinite(valor)||valor<=0){alert('Informe uma descrição e um valor maior que zero.');return}let a=getGastos();a.push({desc,valor,createdAt:new Date().toISOString()});if(saveGastos(a)){el('descGasto').value='';el('valorGasto').value='';renderGastos()}}
+function limparGastos(){if(!confirm('Tem certeza de que deseja apagar todas as despesas salvas neste navegador?'))return;saveGastos([]);renderGastos()}
+function exportar(){let a=getGastos();if(!a.length){alert('Ainda não há despesas para baixar.');return}let csv='Descrição;Valor (R$);Data\\n'+a.map(x=>'"'+x.desc.replace(/"/g,'""')+'";'+x.valor.toFixed(2).replace('.',',')+';'+(x.createdAt||'').slice(0,10)).join('\\n');let blob=new Blob(['\\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='minhas-despesas-central-facil.csv';link.click();URL.revokeObjectURL(url)}
+renderGastos();
+</script>
+</body></html>
